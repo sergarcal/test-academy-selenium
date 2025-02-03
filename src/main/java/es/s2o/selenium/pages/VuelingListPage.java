@@ -42,6 +42,8 @@ public class VuelingListPage extends PageObjectBase {
         flight.setOrigin(rowMap.get("origin"));
         flight.setDestination(rowMap.get("destination"));
         flight.setOneWayTrip(rowMap.get("oneWayTrip"));
+        flight.setTravelers(rowMap.get("travelers"));
+        flight.setDeparture(rowMap.get("departure"));
         return flight;
     }
 }

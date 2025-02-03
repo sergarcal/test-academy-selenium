@@ -3,14 +3,12 @@ package es.s2o.selenium.stepsdefs.vueling;
 import es.s2o.selenium.domain.VuelingDTO;
 import es.s2o.selenium.pages.VuelingListPage;
 import es.s2o.selenium.pages.VuelingPage;
-import es.s2o.selenium.services.NewVuelingPageService;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-import net.serenitybdd.annotations.Steps;
 import net.thucydides.model.environment.SystemEnvironmentVariables;
 import net.thucydides.model.util.EnvironmentVariables;
 import org.openqa.selenium.WebDriver;
@@ -22,6 +20,7 @@ import java.util.List;
 import java.util.Set;
 
 import static net.serenitybdd.core.Serenity.getDriver;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class VuelingStepdefs {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
@@ -29,7 +28,7 @@ public class VuelingStepdefs {
     private VuelingListPage vuelingListPage;
     private VuelingPage vuelingPage;
 
-    private List<VuelingDTO> flights;
+    private VuelingDTO flight;
 
     @Before
     public void beforeScenario() {
@@ -50,10 +49,10 @@ public class VuelingStepdefs {
     }
 
     @When("^I specify the journey details:$")
-    public void iRegisterTheFollowingBooking(List<VuelingDTO> vuelingDTOList) throws Throwable {
-        LOGGER.debug("iRegisterTheFollowingBooking starts, list size:[{}]", vuelingDTOList.size());
-        flights = vuelingDTOList;
-        flights.forEach(flight -> vuelingPage.addFlightDetails(flight));
+    public void iRegisterTheFollowingBooking(VuelingDTO flightDTO) throws Throwable {
+        LOGGER.debug("iRegisterTheFollowingBooking starts, flightDTO:{}", flightDTO);
+        flight = flightDTO;
+        vuelingPage.addFlightDetails(flight);
     }
 
     @Then("^I should see available flights matching my criteria$")
@@ -68,9 +67,9 @@ public class VuelingStepdefs {
         for (VuelingDTO flight : actualFlights) {
             LOGGER.debug(flight.toString());
         }
-        // assertThat(actualReservations).as("Reservation list")
-        //        .usingRecursiveFieldByFieldElementComparator()
-        //        .containsExactlyElementsOf(reservations);
+        assertThat(actualFlights).as("Reservation list")
+                .usingRecursiveFieldByFieldElementComparator()
+                .containsOnly(flight);
     }
 
     private void changeToNewTab() {

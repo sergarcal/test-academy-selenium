@@ -9,5 +9,5 @@ Feature: Booking a flight
     Given I'm in the home page
     When I specify the journey details:
       | origin | destination | departure   | returnD     | oneWayTrip | travelers |
-      | MAD    | BCN         | 2025-06-01  |             | true       | 1         |
+      | MAD    | BCN         | 01/06/2025  |             | true       | 1         |
     Then I should see available flights matching my criteria
