@@ -64,7 +64,10 @@ public class VuelingStepdefs {
         String currentUrl = getDriver().getCurrentUrl();
 
         List<VuelingDTO> actualFlights = vuelingListPage.getFlightsList(currentUrl);
-
+        LOGGER.debug("Flights: ");
+        for (VuelingDTO flight : actualFlights) {
+            LOGGER.debug(flight.toString());
+        }
         // assertThat(actualReservations).as("Reservation list")
         //        .usingRecursiveFieldByFieldElementComparator()
         //        .containsExactlyElementsOf(reservations);

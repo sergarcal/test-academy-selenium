@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.invoke.MethodHandles;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class OldVuelingPageService implements VuelingService {
@@ -39,6 +38,6 @@ public class OldVuelingPageService implements VuelingService {
 
     @Override
     public String getParentElementCss() {
-        return "trip-selector";
+        return ".trip-selector";
     }
 }

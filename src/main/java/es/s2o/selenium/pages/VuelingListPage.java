@@ -3,7 +3,6 @@ package es.s2o.selenium.pages;
 import es.s2o.selenium.domain.VuelingDTO;
 import es.s2o.selenium.factories.VuelingFactory;
 import es.s2o.selenium.interfaces.VuelingService;
-import org.jsoup.nodes.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
@@ -24,7 +23,9 @@ public class VuelingListPage extends PageObjectBase {
         VuelingService vuelingService = VuelingFactory.getVuelingService(currentUrl);
         String parentElementSelector = vuelingService.getParentElementCss();
 
-        List<WebElement> parentElements = getDriver().findElements(By.className(parentElementSelector));
+        waitFor(parentElementSelector);
+
+        List<WebElement> parentElements = getDriver().findElements(By.cssSelector(parentElementSelector));
 
         List<Map<String, String>> journeyDetails = new ArrayList<>();
         for (WebElement parent : parentElements) {
@@ -33,8 +34,7 @@ public class VuelingListPage extends PageObjectBase {
             journeyDetails.add(details);
         }
 
-        List<VuelingDTO> flights = journeyDetails.stream().map(this::mapFlight).toList();
-        return flights;
+        return journeyDetails.stream().map(this::mapFlight).toList();
     }
 
     private VuelingDTO mapFlight(Map<String, String> rowMap) {
@@ -43,9 +43,5 @@ public class VuelingListPage extends PageObjectBase {
         flight.setDestination(rowMap.get("destination"));
         flight.setOneWayTrip(rowMap.get("oneWayTrip"));
         return flight;
-    }
-
-    private List<Element> getFlights(String className){
-        return getDocument().getElementsByClass(className);
     }
 }

@@ -1,7 +1,6 @@
 package es.s2o.selenium.services;
 
 import es.s2o.selenium.interfaces.VuelingService;
-import net.serenitybdd.core.pages.PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -39,6 +38,6 @@ public class NewVuelingPageService implements VuelingService {
 
     @Override
     public String getParentElementCss() {
-        return "vy-flight-selector_journey";
+        return ".vy-flight-selector_journey";
     }
 }
