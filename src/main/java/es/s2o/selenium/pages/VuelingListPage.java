@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,8 +20,7 @@ public class VuelingListPage extends PageObjectBase {
 
     public List<VuelingDTO> getFlightsList(String currentUrl) {
         LOGGER.debug("getReservationList starts");
-
-        VuelingService vuelingService = VuelingFactory.getVuelingService(currentUrl);
+        VuelingService vuelingService = VuelingFactory.getVuelingService(currentUrl, getDriver());
         String parentElementSelector = vuelingService.getParentElementCss();
 
         waitFor(parentElementSelector);
@@ -29,8 +29,12 @@ public class VuelingListPage extends PageObjectBase {
 
         List<Map<String, String>> journeyDetails = new ArrayList<>();
         for (WebElement parent : parentElements) {
-            Map<String, String> details = vuelingService.extractPageData(parent, getDriver());
-
+            Map<String, String> details = new HashMap<>();
+            details.put("origin", vuelingService.getOrigin(parent));
+            details.put("destination", vuelingService.getDestination(parent));
+            details.put("oneWayTrip", vuelingService.getIsOneWayTrip(parent));
+            details.put("travelers", vuelingService.getTravelers(parent));
+            details.put("departure", vuelingService.getDeparture(parent));
             journeyDetails.add(details);
         }
 
@@ -38,6 +42,7 @@ public class VuelingListPage extends PageObjectBase {
     }
 
     private VuelingDTO mapFlight(Map<String, String> rowMap) {
+        // TODO: Cambiar a builder
         VuelingDTO flight = new VuelingDTO();
         flight.setOrigin(rowMap.get("origin"));
         flight.setDestination(rowMap.get("destination"));

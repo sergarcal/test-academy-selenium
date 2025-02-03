@@ -44,6 +44,7 @@ public class VuelingPage extends PageObjectBase {
         btnDestinationDropdownConfirmation.click();
 
         btnOneWayTrip.click();
+        // TODO: Cambiar mes a dinamico
         while (!txtMonth.getText().equals("Junio")) {
             LOGGER.debug(outboundDate.getValue());
             nextButtonCalendar.click();

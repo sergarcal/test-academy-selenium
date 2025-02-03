@@ -6,6 +6,11 @@ import org.openqa.selenium.WebElement;
 import java.util.Map;
 
 public interface VuelingService {
-    public Map<String, String> extractPageData(WebElement parentElement, WebDriver driver);
     public String getParentElementCss();
+
+    public String getOrigin(WebElement parent);
+    public String getDestination(WebElement parent);
+    public String getIsOneWayTrip(WebElement parent);
+    public String getTravelers(WebElement parent);
+    public String getDeparture(WebElement parent);
 }
