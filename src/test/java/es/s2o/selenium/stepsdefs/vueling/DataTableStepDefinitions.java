@@ -1,4 +1,4 @@
-package es.s2o.selenium.stepsdefs.reservations;
+package es.s2o.selenium.stepsdefs.vueling;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
