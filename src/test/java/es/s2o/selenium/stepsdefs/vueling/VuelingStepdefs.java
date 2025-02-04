@@ -1,7 +1,8 @@
 package es.s2o.selenium.stepsdefs.vueling;
 
 import es.s2o.selenium.domain.VuelingDTO;
-import es.s2o.selenium.pages.VuelingListPage;
+import es.s2o.selenium.factories.VuelingFactory;
+import es.s2o.selenium.interfaces.VuelingPageI;
 import es.s2o.selenium.pages.VuelingPage;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -9,6 +10,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import net.serenitybdd.annotations.Steps;
 import net.thucydides.model.environment.SystemEnvironmentVariables;
 import net.thucydides.model.util.EnvironmentVariables;
 import org.openqa.selenium.WebDriver;
@@ -25,8 +27,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class VuelingStepdefs {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-    private VuelingListPage vuelingListPage;
     private VuelingPage vuelingPage;
+    @Steps
+    private VuelingFactory vuelingFactory;
 
     private VuelingDTO flight;
 
@@ -62,11 +65,15 @@ public class VuelingStepdefs {
         changeToNewTab();
         String currentUrl = getDriver().getCurrentUrl();
 
-        List<VuelingDTO> actualFlights = vuelingListPage.getFlightsList(currentUrl);
+        VuelingPageI vuelingPage1 = vuelingFactory.getVuelingPage(currentUrl);
+
+        List<VuelingDTO> actualFlights = vuelingPage1.getFlightsList();
+
         LOGGER.debug("Flights: ");
         for (VuelingDTO flight : actualFlights) {
             LOGGER.debug(flight.toString());
         }
+
         assertThat(actualFlights).as("Reservation list")
                 .usingRecursiveFieldByFieldElementComparator()
                 .containsOnly(flight);
