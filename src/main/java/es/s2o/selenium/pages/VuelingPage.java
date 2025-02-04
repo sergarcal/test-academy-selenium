@@ -1,6 +1,6 @@
 package es.s2o.selenium.pages;
 
-import es.s2o.selenium.domain.VuelingDTO;
+import es.s2o.selenium.domain.FlightDTO;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
@@ -37,7 +37,7 @@ public class VuelingPage extends PageObjectBase {
 
     private WebElementFacade btnSubmitHomeSearcher;
 
-    public void addFlightDetails(VuelingDTO flight) {
+    public void addFlightDetails(FlightDTO flight) {
         LOGGER.debug("addFlightDetails starts, flight: [{}]", flight);
         btnRejectCookies.click();
 

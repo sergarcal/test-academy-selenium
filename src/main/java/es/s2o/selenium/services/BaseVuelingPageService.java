@@ -1,6 +1,7 @@
 package es.s2o.selenium.services;
 
-import es.s2o.selenium.domain.VuelingDTO;
+import es.s2o.selenium.builder.FlightBuilder;
+import es.s2o.selenium.domain.FlightDTO;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,14 +33,15 @@ public class BaseVuelingPageService {
         return formatedDate;
     }
 
-    public static VuelingDTO mapFlight(Map<String, String> rowMap) {
-        // TODO: Cambiar a builder
-        VuelingDTO flight = new VuelingDTO();
-        flight.setOrigin(rowMap.get("origin"));
-        flight.setDestination(rowMap.get("destination"));
-        flight.setOneWayTrip(rowMap.get("oneWayTrip"));
-        flight.setTravelers(rowMap.get("travelers"));
-        flight.setDeparture(rowMap.get("departure"));
-        return flight;
+    public static FlightDTO mapFlight(Map<String, String> rowMap) {
+        return FlightBuilder
+                .aFlight()
+                .withOrigin(rowMap.get("origin"))
+                .withDestination(rowMap.get("destination"))
+                .withDeparture(rowMap.get("departure"))
+                .withReturnD(rowMap.get("returnD"))
+                .withOneWayTrip(rowMap.get("oneWayTrip"))
+                .withTravelers(rowMap.get("travelers"))
+                .build();
     }
 }

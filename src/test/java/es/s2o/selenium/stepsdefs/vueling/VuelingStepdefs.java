@@ -1,7 +1,7 @@
 package es.s2o.selenium.stepsdefs.vueling;
 
-import es.s2o.selenium.domain.VuelingDTO;
-import es.s2o.selenium.factories.VuelingFactory;
+import es.s2o.selenium.domain.FlightDTO;
+import es.s2o.selenium.factories.FlightFactory;
 import es.s2o.selenium.interfaces.VuelingPageI;
 import es.s2o.selenium.pages.VuelingPage;
 import io.cucumber.java.After;
@@ -29,9 +29,9 @@ public class VuelingStepdefs {
 
     private VuelingPage vuelingPage;
     @Steps
-    private VuelingFactory vuelingFactory;
+    private FlightFactory flightFactory;
 
-    private VuelingDTO flight;
+    private FlightDTO flight;
 
     @Before
     public void beforeScenario() {
@@ -52,7 +52,7 @@ public class VuelingStepdefs {
     }
 
     @When("^I specify the journey details:$")
-    public void iRegisterTheFollowingBooking(VuelingDTO flightDTO) throws Throwable {
+    public void iRegisterTheFollowingBooking(FlightDTO flightDTO) throws Throwable {
         LOGGER.debug("iRegisterTheFollowingBooking starts, flightDTO:{}", flightDTO);
         flight = flightDTO;
         vuelingPage.addFlightDetails(flight);
@@ -65,12 +65,12 @@ public class VuelingStepdefs {
         changeToNewTab();
         String currentUrl = getDriver().getCurrentUrl();
 
-        VuelingPageI vuelingPage1 = vuelingFactory.getVuelingPage(currentUrl);
+        VuelingPageI vuelingPage1 = flightFactory.getVuelingPage(currentUrl);
 
-        List<VuelingDTO> actualFlights = vuelingPage1.getFlightsList();
+        List<FlightDTO> actualFlights = vuelingPage1.getFlightsList();
 
         LOGGER.debug("Flights: ");
-        for (VuelingDTO flight : actualFlights) {
+        for (FlightDTO flight : actualFlights) {
             LOGGER.debug(flight.toString());
         }
 

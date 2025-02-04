@@ -1,6 +1,6 @@
 package es.s2o.selenium.pages;
 
-import es.s2o.selenium.domain.VuelingDTO;
+import es.s2o.selenium.domain.FlightDTO;
 import es.s2o.selenium.interfaces.VuelingPageI;
 import es.s2o.selenium.services.NewVuelingPageService;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -26,7 +26,7 @@ public class NewVuelingPage extends PageObject implements VuelingPageI {
     private WebElementFacade selectedDate;
 
     @Override
-    public List<VuelingDTO> getFlightsList() {
+    public List<FlightDTO> getFlightsList() {
         flightsListComponent.waitUntilVisible();
 
         List<WebElement> parentElements = getDriver().findElements(By.cssSelector(".vy-flight-selector_journey"));
@@ -77,7 +77,7 @@ public class NewVuelingPage extends PageObject implements VuelingPageI {
         return NewVuelingPageService.parseSelectedDate(selectedDateContent);
     }
 
-    private VuelingDTO mapFlight(Map<String, String> rowMap) {
+    private FlightDTO mapFlight(Map<String, String> rowMap) {
         return NewVuelingPageService.mapFlight(rowMap);
     }
 }

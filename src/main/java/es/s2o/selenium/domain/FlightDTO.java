@@ -4,7 +4,7 @@ package es.s2o.selenium.domain;
 /**
  * Created by sacrists on 26.02.17.
  */
-public class VuelingDTO {
+public class FlightDTO {
 
     private String origin;
     private String destination;
@@ -13,7 +13,7 @@ public class VuelingDTO {
     private String oneWayTrip;
     private String travelers;
 
-    public VuelingDTO() {
+    public FlightDTO() {
 
     }
 
