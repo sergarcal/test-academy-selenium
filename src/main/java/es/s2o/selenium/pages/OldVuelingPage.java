@@ -17,7 +17,9 @@ import java.util.Map;
 public class OldVuelingPage extends PageObject implements VuelingPageI {
 
     @FindBy(css = ".trip-selector")
-    private WebElementFacade flightsListComponent;
+    private WebElementFacade flightsListItem;
+    @FindBy(css = ".trip-selector")
+    private List<WebElement> flightsListItems;
 
     @FindBy(css = ".booking_data-flow_content .booking_data-flow_content_text:nth-child(2)")
     private WebElementFacade flightType;
@@ -32,12 +34,10 @@ public class OldVuelingPage extends PageObject implements VuelingPageI {
 
     @Override
     public List<FlightDTO> getFlightsList() {
-        flightsListComponent.waitUntilVisible();
-
-        List<WebElement> parentElements = getDriver().findElements(By.cssSelector(".trip-selector"));
+        flightsListItem.waitUntilVisible();
 
         List<Map<String, String>> journeyDetails = new ArrayList<>();
-        for (WebElement parent : parentElements) {
+        for (WebElement parent : flightsListItems) {
             Map<String, String> details = new HashMap<>();
             details.put("origin", extractOrigin(parent));
             details.put("destination", extractDestination(parent));

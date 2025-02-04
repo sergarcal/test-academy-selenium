@@ -14,7 +14,9 @@ import java.util.*;
 public class NewVuelingPage extends PageObject implements VuelingPageI {
 
     @FindBy(css = ".vy-flight-selector_journey")
-    private WebElementFacade flightsListComponent;
+    private WebElementFacade flightsListItem;
+    @FindBy(css = ".vy-flight-selector_journey")
+    private List<WebElement> flightsListItems;
 
     @FindBy(css = ".select-fligth-route .select-fligth-subtitle>.bodyM")
     private WebElementFacade flightType;
@@ -27,12 +29,10 @@ public class NewVuelingPage extends PageObject implements VuelingPageI {
 
     @Override
     public List<FlightDTO> getFlightsList() {
-        flightsListComponent.waitUntilVisible();
-
-        List<WebElement> parentElements = getDriver().findElements(By.cssSelector(".vy-flight-selector_journey"));
+        flightsListItem.waitUntilVisible();
 
         List<Map<String, String>> journeyDetails = new ArrayList<>();
-        for (WebElement parent : parentElements) {
+        for (WebElement parent : flightsListItems) {
             Map<String, String> details = new HashMap<>();
             details.put("origin", extractOrigin(parent));
             details.put("destination", extractDestination(parent));
