@@ -59,7 +59,7 @@ You can improve __everything__ in the project with a PR:
 ```cmd
 gradle test -Dcucumber.options="--tags @something"
 ```
-* From junit class: src/test/java/es/s2o/selenium/tests/reservations/ReservationTest.java
+* From junit class: src/test/java/es/s2o/selenium/tests/vueling/VuelingTest.java
 * __See the reports in target/site/serenity/index.html__
 
 ### CI
