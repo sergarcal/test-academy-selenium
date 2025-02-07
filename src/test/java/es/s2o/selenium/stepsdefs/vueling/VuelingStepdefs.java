@@ -65,16 +65,16 @@ public class VuelingStepdefs {
         changeToNewTab();
         String currentUrl = getDriver().getCurrentUrl();
 
-        VuelingPageI vuelingPage1 = flightFactory.getVuelingPage(currentUrl);
+        VuelingPageI vuelingPage = flightFactory.getVuelingPage(currentUrl);
 
-        List<FlightDTO> actualFlights = vuelingPage1.getFlightsList();
+        List<FlightDTO> actualFlights = vuelingPage.getFlightsList();
 
         LOGGER.debug("Flights: ");
         for (FlightDTO flight : actualFlights) {
             LOGGER.debug(flight.toString());
         }
 
-        assertThat(actualFlights).as("Reservation list")
+        assertThat(actualFlights).as("Flights list")
                 .usingRecursiveFieldByFieldElementComparator()
                 .containsOnly(flight);
     }

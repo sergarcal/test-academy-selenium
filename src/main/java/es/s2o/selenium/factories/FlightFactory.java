@@ -12,9 +12,11 @@ public class FlightFactory {
     public FlightFactory() {}
 
     public VuelingPageI getVuelingPage(String baseUrl) {
-        if (baseUrl.equals(newVuelingSiteUrl)) {
-            return newVuelingPage;
+        switch (baseUrl) {
+            case newVuelingSiteUrl:
+                return newVuelingPage;
+            default:
+                return oldVuelingPage;
         }
-        return oldVuelingPage;
     }
 }
